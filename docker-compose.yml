@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  retrieval_service:
+    build: ./services/retrieval_service
+    volumes:
+      - ./chroma_db:/data/chroma_db
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - CHROMA_DB_PATH=/data/chroma_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8001:8000"
+
+  llm_service:
+    build: ./services/llm_service
+    environment:
+      - LLM_BACKEND=${LLM_BACKEND:-ollama}
+      - OLLAMA_HOST=https://any-commentary-editors-marking.trycloudflare.com
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-codellama}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - GROQ_MODEL=${GROQ_MODEL:-llama-3.1-8b-instant}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8002:8000"
+
+  app_service:
+    build: ./services/app_service
+    environment:
+      - RETRIEVAL_URL=http://retrieval_service:8000
+      - LLM_URL=http://llm_service:8000
+    depends_on:
+      - retrieval_service
+      - llm_service
+    ports:
+      - "8000:8000"
+  streamlit_ui:
+    build: ./services/streamlit_ui
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./repos:/app/repos
+      - ./repo_registry.json:/app/repo_registry.json
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - CHROMA_DB_PATH=/app/chroma_db
+      - APP_SERVICE_URL=http://app_service:8000
+      - RETRIEVAL_SERVICE_URL=http://retrieval_service:8000
+      - LLM_SERVICE_URL=http://llm_service:8000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - app_service
+      - retrieval_service
+      - llm_service
+    ports:
+      - "8501:8501"

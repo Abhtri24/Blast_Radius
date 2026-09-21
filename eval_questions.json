@@ -1,0 +1,39 @@
+[
+  {"id": "q1", "category": "code_explanation", "question": "What does the loginUser function in user.controller.js do?"},
+  {"id": "q2", "category": "code_explanation", "question": "What does generateAccessToken and generateRefreshToken do on the User model?"},
+  {"id": "q3", "category": "code_explanation", "question": "What does the asyncHandler utility in utils/asynchandler.js do and why is it used?"},
+  {"id": "q4", "category": "code_explanation", "question": "What does the multer.middleware.js file do?"},
+
+  {"id": "q5", "category": "code_retrieval", "question": "Which file handles user authentication middleware?"},
+  {"id": "q6", "category": "code_retrieval", "question": "Which file defines the Video schema?"},
+  {"id": "q7", "category": "code_retrieval", "question": "Which file uploads files to Cloudinary?"},
+  {"id": "q8", "category": "code_retrieval", "question": "Which file defines the ApiError class?"},
+  {"id": "q9", "category": "code_retrieval", "question": "Which file contains the Express routes for users?"},
+
+  {"id": "q10", "category": "dependency_understanding", "question": "Which functions in user.controller.js use generateAccandRefToken?"},
+  {"id": "q11", "category": "dependency_understanding", "question": "Which files import from auth.middleware.js?"},
+  {"id": "q12", "category": "dependency_understanding", "question": "Is there a routes file for videos, or does video.controller.js have no route file wired to it?"},
+  {"id": "q13", "category": "dependency_understanding", "question": "Which models does user.controller.js depend on?"},
+  {"id": "q14", "category": "dependency_understanding", "question": "What would break if ApiError.js were deleted?"},
+
+  {"id": "q15", "category": "bug_analysis", "question": "What could cause loginUser to return a 401 even with a correct password?"},
+  {"id": "q16", "category": "bug_analysis", "question": "What happens if req.body is missing both username and email in loginUser?"},
+  {"id": "q17", "category": "bug_analysis", "question": "Could multer.middleware.js fail silently if the upload directory doesn't exist?"},
+  {"id": "q18", "category": "bug_analysis", "question": "Is there any code in this repo that uses comment.model.js, playlist.model.js, or subscription.model.js, or are they currently unused?"},
+
+  {"id": "q19", "category": "code_generation", "question": "Write a unit test for loginUser."},
+  {"id": "q20", "category": "code_generation", "question": "Write an Express middleware that checks whether a JWT access token is expired, similar to auth.middleware.js."},
+  {"id": "q21", "category": "code_generation", "question": "Generate a function to validate an email format for user registration."},
+
+  {"id": "q22", "category": "refactoring", "question": "Suggest an improvement to how loginUser handles missing credentials."},
+  {"id": "q23", "category": "refactoring", "question": "How could error handling in user.controller.js be made more consistent using ApiError.js?"},
+  {"id": "q24", "category": "refactoring", "question": "Suggest a way to reduce duplication between generateAccessToken and generateRefreshToken."},
+
+  {"id": "q25", "category": "rag_project_level", "question": "What does this project's authentication flow look like end-to-end, from route to controller to model?"},
+  {"id": "q26", "category": "rag_project_level", "question": "How does file upload work in this project, from multer.middleware.js to Cloudinary?"},
+
+  {"id": "q27", "category": "repo_level_understanding", "question": "Which files are involved in user authentication, from route to database?"},
+  {"id": "q28", "category": "repo_level_understanding", "question": "What happens step-by-step after a user submits a login request?"},
+  {"id": "q29", "category": "repo_level_understanding", "question": "Which components would be affected if the User model's refreshToken field were removed?"},
+  {"id": "q30", "category": "repo_level_understanding", "question": "Are comment.model.js, playlist.model.js, and subscription.model.js connected to any controller or route in this codebase?"}
+]

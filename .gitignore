@@ -1,0 +1,21 @@
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+.env.*
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Generated Chroma database
+chroma_db/
+
+# Evaluation outputs
+eval_results.jsonl
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/

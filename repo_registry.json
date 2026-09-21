@@ -1,0 +1,10 @@
+{
+  "Backend-Project": {
+    "path": "./repos/Backend-Project",
+    "source": "https://github.com/Abhtri24/Backend-Project",
+    "collection": "Backend-Project",
+    "head_sha": "f98fbdc210a000ab538c23fc06842e68874ac478",
+    "chunk_count": 34,
+    "indexed_at": "2026-09-01 06:34:33"
+  }
+}
