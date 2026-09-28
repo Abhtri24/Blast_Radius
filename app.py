@@ -20,34 +20,47 @@ LLM_SERVICE_URL = os.environ.get("LLM_SERVICE_URL", "http://localhost:8002")
 
 
 def ask_service(question, collection_name, k=6):
-    resp = requests.post(
-        f"{APP_SERVICE_URL}/ask",
-        json={"question": question, "k": k, "collection_name": collection_name},
-        timeout=120,
-    )
-    resp.raise_for_status()
-    data = resp.json()
-    return data["answer"], data["context_used"]
+    try:
+        resp = requests.post(
+            f"{APP_SERVICE_URL}/ask",
+            json={"question": question, "k": k, "collection_name": collection_name},
+            timeout=120,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        return data.get("answer", ""), data.get("context_used", [])
+    except Exception as e:
+        st.error(f"App Service error: {e}")
+        return f"Error: {e}", []
 
 
 def search_service(query, collection_name, k=5):
-    resp = requests.post(
-        f"{RETRIEVAL_SERVICE_URL}/search",
-        json={"query": query, "k": k, "collection_name": collection_name},
-        timeout=60,
-    )
-    resp.raise_for_status()
-    return resp.json()["chunks"]
+    try:
+        resp = requests.post(
+            f"{RETRIEVAL_SERVICE_URL}/search",
+            json={"query": query, "k": k, "collection_name": collection_name},
+            timeout=60,
+        )
+        resp.raise_for_status()
+        return resp.json().get("chunks", [])
+    except Exception as e:
+        st.error(f"Retrieval Service error: {e}")
+        return []
 
 
 def generate_service(prompt):
-    resp = requests.post(
-        f"{LLM_SERVICE_URL}/generate",
-        json={"prompt": prompt},
-        timeout=120,
-    )
-    resp.raise_for_status()
-    return resp.json()
+    try:
+        resp = requests.post(
+            f"{LLM_SERVICE_URL}/generate",
+            json={"prompt": prompt},
+            timeout=120,
+        )
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        st.error(f"LLM Service error: {e}")
+        return {"answer": f"Error: {e}"}
+
 
 
 st.set_page_config(page_title="Blast Radius", layout="wide")

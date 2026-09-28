@@ -14,6 +14,8 @@ chroma_db/
 
 # Evaluation outputs
 eval_results.jsonl
+guardrail_test_results.json
+output_quality_results.json
 
 # OS/editor files
 .DS_Store
